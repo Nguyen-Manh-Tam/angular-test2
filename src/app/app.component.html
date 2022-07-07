@@ -1,4 +1,79 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<!-- NgFor-->
+
+<!--
+  for (let user of users) {
+
+  }
+  - $implicit: item Implicit  Context Variable.
+  - index: so thu tu cua item hien tai.
+  - count: do dai cua array.
+  - first: true neu l item dau tien.
+  - last: true neu nhu item do la item cuoi cung.
+  - even: true neu nhu item do la vi tri chan.
+  - odd: true neu nhu item do vi tri le
+ -->
+
+<ul>
+  <ng-container *ngIf="users.length > 0; else noUsers">
+    <li
+      *ngFor="
+        let user of users;
+        index as idx;
+        count as total;
+        first as isFirst;
+        last as isLast;
+        even as isEven;
+        odd as isOdd
+      "
+    >
+      <span>{{ user.name }} - {{ user.id }} - {{ user.phone }}</span>
+      <br />
+      <span>at index {{ idx }} out of {{ total }}</span>
+      <br />
+      <span *ngIf="isEven">I am even number </span>
+      <br />
+      <span *ngIf="isOdd">I am odd number </span>
+      <br />
+      <span *ngIf="isLast">I am last </span>
+      <br />
+      <span *ngIf="isFirst">I am first </span>
+      <br /><br /><br />
+    </li>
+  </ng-container>
+  <ng-template #noUsers> No users </ng-template>
+</ul>
+
+<!-- isLast -->
+<button *ngFor="let tag of tags; last as isLast" [class.right-margin]="!isLast">
+  {{ tag }}
+</button>
+
+<!-- ngFor (cách khác) -->
+<!-- <ul>
+  <ng-template
+    ngFor
+    [ngForOf]="users"
+    let-user
+    let-idx="index"
+    let-total="count"
+    let-isFirst="first"
+    let-isLast="last"
+    let-isEven="even"
+    let-isOdd="odd"
+  >
+    <li>
+      <span>{{ user.name }} - {{ user.id }} - {{ user.phone }}</span>
+      <br />
+      <span>at index {{ idx }} out of {{ total }}</span>
+      <br />
+      <span *ngIf="isEven">I am even number </span>
+      <br />
+      <span *ngIf="isOdd">I am odd number </span>
+      <br />
+      <span *ngIf="isLast">I am last </span>
+      <br />
+      <span *ngIf="isFirst">I am first </span>
+      <br /><br /><br />
+    </li>
+  </ng-template>
+</ul> -->
